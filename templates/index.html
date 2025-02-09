@@ -35,7 +35,7 @@
                    <input type="text" class="form-control" id="bhk" name="bhk" placeholder="Enter BHK">
                 </div>
                   <div class="col-md-6 form-group my-3" style="text-align:center">
-                  <label ><b>Enter BHK:</b></label>
+                  <label ><b>Enter Number of Bathrooms:</b></label>
                    <input type="text" class="form-control" id="bath" name="bath" placeholder="Enter Number of Bathrooms">
                 </div>
                   <div class="col-md-6 form-group my-3" style="text-align:center">
@@ -50,7 +50,7 @@
               <br/>
               <div class="col-md-12" style="text-align:center">
                   <h3>
-                      <span id="Prediction"></span>
+                      <span id="prediction"></span>
                   </h3>
               </div>
           </div>
@@ -58,6 +58,32 @@
       </div>
     </div>
 
+    <script>
+      function form_handler(event)
+      {
+          event.preventDefault();
+      }
+      function send_data()
+      {
+          document.querySelector('form').addEventListener("submit",form_handler);
+          var fd = new FormData(document.querySelector('form'));
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST','/predict',true);
+          document.getElementById("prediction").innerHTML = "Wait Predicting Price!....";
+          xhr.onreadystatechange = function()
+          {
+            if(xhr.readyState == XMLHttpRequest.DONE)
+            {
+              document.getElementById('prediction').innerHTML = "Prediction: ₹ "+xhr.responseText;
+             }
+           };
+
+           xhr.onload = function(){};
+           xhr.send(fd);
+
+      }
+
+    </script>
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
 
